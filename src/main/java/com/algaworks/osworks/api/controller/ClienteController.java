@@ -25,24 +25,24 @@ import com.algaworks.osworks.domain.service.CadastroClienteService;
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
-	
+
 	@Autowired
 	private ClienteRepository clienteRepository;
-	
+
 	@Autowired
 	private CadastroClienteService cadastroCliente;
-	
+
 	@GetMapping
 	public List<Cliente> listar() {
-		
+
 		return clienteRepository.findAll();
 	}
-	
+
 	@GetMapping("/{clienteId}")
 	public ResponseEntity<Cliente> buscar(@PathVariable Long clienteId) {
-		
+
 		Optional<Cliente> cliente = clienteRepository.findById(clienteId);
-		
+
 		// se encontrar o cliente, retorna 200 (ok)
 		if (cliente.isPresent()) {
 			return ResponseEntity.ok(cliente.get());
@@ -50,37 +50,37 @@ public class ClienteController {
 		// caso contrário, retorna 404 (não encontrado)
 		return ResponseEntity.notFound().build();
 	}
-	
-	@PostMapping	    	//transformando em objeto cliente
+
+	@PostMapping // transformando em objeto cliente
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
-		
+
 		return cadastroCliente.salvar(cliente);
 	}
-	
+
 	@PutMapping("/{clienteId}")
 	public ResponseEntity<Cliente> atualizar(@Valid @PathVariable Long clienteId, @RequestBody Cliente cliente) {
-		
+
 		if (!clienteRepository.existsById(clienteId)) {
 			return ResponseEntity.notFound().build();
 		}
-		
+
 		// atualização de um cliente e não a criação de um novo
 		cliente.setId(clienteId);
 		cliente = cadastroCliente.salvar(cliente);
-		
+
 		return ResponseEntity.ok(cliente);
 	}
-	
-	@DeleteMapping("/{clienteId}")// não possui corpo de resposta
+
+	@DeleteMapping("/{clienteId}") // não possui corpo de resposta
 	public ResponseEntity<Void> remover(@PathVariable Long clienteId) {
-		
+
 		if (!clienteRepository.existsById(clienteId)) {
 			return ResponseEntity.notFound().build();
 		}
 		// deletar pelo Id
 		cadastroCliente.excluir(clienteId);
-		
+
 		// código 204
 		return ResponseEntity.noContent().build();
 	}

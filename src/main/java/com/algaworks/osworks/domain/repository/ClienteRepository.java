@@ -7,10 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import com.algaworks.osworks.domain.model.Cliente;
 
-@Repository									// tipo da entidade, tipo do identificador da entidade
+@Repository // tipo da entidade, tipo do identificador da entidade
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-	
+
 	List<Cliente> findByNome(String nome);
+
 	List<Cliente> findByNomeContaining(String nome);
+
 	Cliente findByEmail(String email);
 }
