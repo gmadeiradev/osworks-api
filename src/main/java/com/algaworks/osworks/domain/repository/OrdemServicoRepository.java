@@ -7,5 +7,5 @@ import com.algaworks.osworks.domain.model.OrdemServico;
 
 @Repository
 public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long> {
-	
+
 }
