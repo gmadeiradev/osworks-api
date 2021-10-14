@@ -47,10 +47,10 @@ public class OrdemServicoController {
 		Optional<OrdemServico> ordemServico = ordemServicoRepository.findById(ordemServicoId);
 
 		if (ordemServico.isPresent()) {
-			
+
 			return ResponseEntity.ok(ordemServico.get());
 		}
-		
+
 		return ResponseEntity.notFound().build();
 	}
 }
