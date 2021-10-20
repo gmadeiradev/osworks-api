@@ -11,12 +11,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.algaworks.osworks.domain.ValidationGroups;
-
 @Entity
 public class Cliente {
 
-	@NotBlank(groups = { ValidationGroups.ClientId.class })
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
